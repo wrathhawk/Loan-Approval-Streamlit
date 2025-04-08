@@ -37,7 +37,7 @@ df = pd.DataFrame({
 })
 
 # Encode categorical
-encoded = encoder.transform(df).toarray()
+encoded = encoder.transform(df)
 
 # Scale numeric
 numeric = scaler.transform([[income, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght, age]])
