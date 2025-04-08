@@ -40,13 +40,15 @@ categorical_columns = encoder.get_feature_names_out()  # exact order from traini
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
 # Prepare numeric data for scaling
-numeric = np.array([[age, income,person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght]])
+numeric = [[age, income,person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght]]
+
+X = pd.concat([df_cat_encoded, numeric], axis=1
 
 # Scale numeric data
-scaled_numeric = scaler.transform(numeric)
+scaled_numeric = scaler.transform(X)
 
 # Combine encoded categorical and scaled numeric data
-final_input = np.hstack([scaled_numeric,df_cat_encoded])
+final_input = np.hstack(X)
 
 # Prediction
 if st.button("Predict"):
