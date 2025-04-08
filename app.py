@@ -46,7 +46,16 @@ numeric = pd.DataFrame([[age, income, person_emp_lenght, loan_amount, loan_inter
 final_input_data = pd.concat([df_cat_encoded, numeric], axis=1)
 
 # Scale numeric data
-scaled_input = scaler.transform(final_input_data)
+# Check the shape of the final input data before scaling
+st.write(f"Shape of the final input data: {final_input_data.shape}")
+st.write(f"Columns of the final input data: {final_input_data.columns}")
+
+# Scale all 22 features together
+try:
+    scaled_input = scaler.transform(final_input_data)
+    st.write("Scaling successful!")
+except Exception as e:
+    st.error(f"Error in scaling: {str(e)}")
 
 
 # Prediction
