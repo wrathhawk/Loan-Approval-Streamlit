@@ -30,15 +30,10 @@ loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
 age = st.number_input("Age of the Applicant", min_value=18)
 
 # Prepare input for encoding
-df_cat = pd.DataFrame({
-    "person_home_ownership": [home_ownership],
-    "loan_intent": [loan_intent],
-    "loan_grade": [loan_grade],
-    "cb_person_default_on_file": [default_on_file]
-})
+cols_to_encode = [home_ownership, loan_intent, loan_grade, default_on_file]
 
 # Encode categorical
-encoded = encoder.transform(df_cat)
+encoded = encoder.transform(cols_to_encode)
 
 # Get the categorical column names from the encoder
 categorical_columns = encoder.get_feature_names_out()  # exact order from training
