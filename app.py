@@ -40,19 +40,18 @@ categorical_columns = encoder.get_feature_names_out()  # exact order from traini
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
 # Prepare numeric data for scaling
-numeric = [[age, income,person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght]]
+numeric = pd.DataFrame([[age, income, person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght]], 
+                       columns=["age", "income", "person_emp_lenght", "loan_amount", "loan_interest", "loan_percent_income", "cred_hist_lenght"])
 
-X = pd.concat([df_cat_encoded, numeric], axis=1
+final_input_data = pd.concat([df_cat_encoded, numeric], axis=1)
 
 # Scale numeric data
-scaled_numeric = scaler.transform(X)
+scaled_input = scaler.transform(final_input_data)
 
-# Combine encoded categorical and scaled numeric data
-final_input = np.hstack(X)
 
 # Prediction
 if st.button("Predict"):
-    prediction = model.predict(final_input)
+    prediction = model.predict(scaled_input)
 
     if prediction >= 0.5:
         st.success("Loan Approved!")
