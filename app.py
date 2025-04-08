@@ -30,7 +30,7 @@ loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
 age = st.number_input("Age of the Applicant", min_value=18)
 
 # Prepare input for encoding
-cols_to_encode = [home_ownership, loan_intent, loan_grade, default_on_file]
+cols_to_encode = [[home_ownership, loan_intent, loan_grade, default_on_file]]
 
 # Encode categorical
 encoded = encoder.transform(cols_to_encode)
