@@ -24,12 +24,12 @@ default_on_file = st.selectbox("Default on File", ["Y", "N"])
 income = st.number_input("Annual Income", min_value=0)
 loan_amount = st.number_input("Loan Amount", min_value=0)
 loan_percent_income = st.number_input("Loan Percent Income", min_value=0)
-cred_hist_lenght = st.number_input("Credit History Lenght", min_value=0)
+cred_hist_lenght = st.number_input("Credit History Length", min_value=0)
 loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
 age = st.number_input("Age of the Applicant", min_value=18)
 
-# Prepare input
-df = pd.DataFrame({
+# Prepare input for encoding
+df_cat = pd.DataFrame({
     "person_home_ownership": [home_ownership],
     "loan_intent": [loan_intent],
     "loan_grade": [loan_grade],
@@ -37,13 +37,20 @@ df = pd.DataFrame({
 })
 
 # Encode categorical
-encoded = encoder.transform(df)
+encoded = encoder.transform(df_cat)
 
-# Scale numeric
-numeric = scaler.transform([[income, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght, age]])
+# Get the categorical column names from the encoder
+categorical_columns = encoder.get_feature_names_out()  # exact order from training
+df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
-# Final input
-final_input = np.hstack([encoded, numeric])
+# Prepare numeric data for scaling
+numeric = np.array([[income, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght, age]])
+
+# Scale numeric data
+scaled_numeric = scaler.transform(numeric)
+
+# Combine encoded categorical and scaled numeric data
+final_input = np.hstack([df_cat_encoded, scaled_numeric])
 
 # Prediction
 if st.button("Predict"):
