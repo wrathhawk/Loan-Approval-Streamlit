@@ -23,6 +23,7 @@ default_on_file = st.selectbox("Default on File", ["Y", "N"])
 
 income = st.number_input("Annual Income", min_value=0)
 loan_amount = st.number_input("Loan Amount", min_value=0)
+person_emp_lenght = st.number_input("Person Emp Lenght", min_value=0)
 loan_percent_income = st.number_input("Loan Percent Income", min_value=0)
 cred_hist_lenght = st.number_input("Credit History Length", min_value=0)
 loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
@@ -44,13 +45,13 @@ categorical_columns = encoder.get_feature_names_out()  # exact order from traini
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
 # Prepare numeric data for scaling
-numeric = np.array([[income, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght, age]])
+numeric = np.array([[age, income,person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght]])
 
 # Scale numeric data
 scaled_numeric = scaler.transform(numeric)
 
 # Combine encoded categorical and scaled numeric data
-final_input = np.hstack([df_cat_encoded, scaled_numeric])
+final_input = np.hstack([scaled_numeric,df_cat_encoded])
 
 # Prediction
 if st.button("Predict"):
