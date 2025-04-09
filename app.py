@@ -29,6 +29,19 @@ cb_person_cred_hist_length = st.number_input("Credit History Length", min_value=
 loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
 age = st.number_input("Age of the Applicant", min_value=18)
 
+# Debugging: Print the user input variables
+st.write(f"person_home_ownership: {person_home_ownership}")
+st.write(f"loan_intent: {loan_intent}")
+st.write(f"loan_grade: {loan_grade}")
+st.write(f"cb_person_default_on_file: {cb_person_default_on_file}")
+st.write(f"income: {income}")
+st.write(f"loan_amount: {loan_amount}")
+st.write(f"person_emp_length: {person_emp_length}")
+st.write(f"loan_percent_income: {loan_percent_income}")
+st.write(f"cb_person_cred_hist_length: {cb_person_cred_hist_length}")
+st.write(f"loan_interest: {loan_interest}")
+st.write(f"age: {age}")
+
 # Prepare input for encoding
 cols_to_encode = [[person_home_ownership, loan_intent, loan_grade, cb_person_default_on_file]]
 
