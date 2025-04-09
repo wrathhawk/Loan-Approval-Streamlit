@@ -29,18 +29,7 @@ cb_person_cred_hist_length = st.number_input("Credit History Length", min_value=
 loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
 age = st.number_input("Age of the Applicant", min_value=18)
 
-# Debugging: Print the user input variables
-st.write(f"person_home_ownership: {person_home_ownership}")
-st.write(f"loan_intent: {loan_intent}")
-st.write(f"loan_grade: {loan_grade}")
-st.write(f"cb_person_default_on_file: {cb_person_default_on_file}")
-st.write(f"income: {income}")
-st.write(f"loan_amount: {loan_amount}")
-st.write(f"person_emp_length: {person_emp_length}")
-st.write(f"loan_percent_income: {loan_percent_income}")
-st.write(f"cb_person_cred_hist_length: {cb_person_cred_hist_length}")
-st.write(f"loan_interest: {loan_interest}")
-st.write(f"age: {age}")
+
 
 # Prepare input for encoding
 cols_to_encode = [[person_home_ownership, loan_intent, loan_grade, cb_person_default_on_file]]
@@ -64,27 +53,15 @@ numeric_df = pd.DataFrame(numeric, columns=[
 # Concatenate numeric and categorical data
 final_input_data = pd.concat([numeric_df, df_cat_encoded], axis=1)
 
-# Debugging: Print the shape of the input data
-st.write("Input data shape:", final_input_data.shape)
 
 # Scale the input data
 scaled_input = scaler.transform(final_input_data)
 
-# Check for NaN or infinite values
-if np.any(np.isnan(scaled_input)) or np.any(np.isinf(scaled_input)):
-    st.error("Error: Input data contains NaN or infinite values.")
-else:
     # Prediction
-    if st.button("Predict"):
-        prediction = model.predict(scaled_input)
+ if st.button("Predict"):
+    prediction = model.predict(scaled_input):
 
-        # Check if prediction is valid
-        if prediction is None:
-            st.error("Error: Model prediction returned None.")
-        else:
-            # Assuming binary classification, checking for loan approval
-            st.write("Prediction:", prediction)  # Debugging prediction output
-            if prediction[0] >= 0.5:
-                st.success("Loan Approved!")
-            else:
-                st.error("Loan Denied.")
+     if prediction[0] >= 0.5:
+        st.success("Loan Approved!")
+     else:
+        st.error("Loan Denied.")
