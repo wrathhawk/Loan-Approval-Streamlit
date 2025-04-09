@@ -46,7 +46,7 @@ numeric_df = pd.DataFrame(numeric, columns=['person_age', 'person_income', 'pers
 final_input_data = pd.concat([numeric_df, df_cat_encoded], axis=1)
 
 
-scaled_input = sclaer.transform(final_input_data)
+scaled_input = scaler.transform(final_input_data)
 
 
 # Prediction
