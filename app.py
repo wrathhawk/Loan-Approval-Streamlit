@@ -60,10 +60,10 @@ final_input_data = pd.concat([numeric_df, df_cat_encoded], axis=1)
 scaled_input = scaler.transform(final_input_data)
 
     # Prediction
- if st.button("Predict"):
+if st.button("Predict"):
     prediction = model.predict(scaled_input):
 
-     if prediction[0] >= 0.5:
+    if prediction >= 0.5:
         st.success("Loan Approved!")
-     else:
-        st.error("Loan Denied.")
+    else:
+        st.error("Loan Denied!")
