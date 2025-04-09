@@ -40,22 +40,13 @@ categorical_columns = encoder.get_feature_names_out()  # exact order from traini
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
 # Prepare numeric data for scaling
-numeric = pd.DataFrame([[age, income, person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_lenght]], 
-                       columns=["age", "income", "person_emp_lenght", "loan_amount", "loan_interest", "loan_percent_income", "cred_hist_lenght"])
+numeric_df = pd.DataFrame(numeric, columns=['person_age', 'person_income', 'person_emp_length', 'loan_amnt', 
+                                            'loan_int_rate', 'loan_percent_income', 'cb_person_cred_hist_length'])
 
-final_input_data = pd.concat([df_cat_encoded, numeric], axis=1)
+final_input_data = pd.concat([numeric_df, df_cat_encoded], axis=1)
 
-# Scale numeric data
-# Check the shape of the final input data before scaling
-st.write(f"Shape of the final input data: {final_input_data.shape}")
-st.write(f"Columns of the final input data: {final_input_data.columns}")
 
-# Scale all 22 features together
-try:
-    scaled_input = scaler.transform(final_input_data)
-    st.write("Scaling successful!")
-except Exception as e:
-    st.error(f"Error in scaling: {str(e)}")
+scaled_input = sclaer.transform(final_input_data)
 
 
 # Prediction
