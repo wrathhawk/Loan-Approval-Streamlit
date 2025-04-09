@@ -33,9 +33,12 @@ age = st.number_input("Age of the Applicant", min_value=18)
 
 # Prepare input for encoding
 cols_to_encode = [[person_home_ownership, loan_intent, loan_grade, cb_person_default_on_file]]
+cat_df = pd.DataFrame(cols_to_encode, columns=[
+    'person_home_ownership', 'loan_intent', 'loan_grade', 'cb_person_default_on_file'
+])
 
 # Encode categorical
-encoded = encoder.transform(cols_to_encode)
+encoded = encoder.transform(cat_df)
 
 # Get the categorical column names from the encoder
 categorical_columns = encoder.get_feature_names_out()  # exact order from training
