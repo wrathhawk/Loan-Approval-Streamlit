@@ -61,9 +61,10 @@ scaled_input = scaler.transform(final_input_data)
 
     # Prediction
 if st.button("Predict"):
-    prediction = model.predict(scaled_input):
+    prediction = model.predict(scaled_input)
 
     if prediction >= 0.5:
         st.success("Loan Approved!")
     else:
         st.error("Loan Denied!")
+
