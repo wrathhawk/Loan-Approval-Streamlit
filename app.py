@@ -39,6 +39,7 @@ encoded = encoder.transform(cols_to_encode)
 categorical_columns = encoder.get_feature_names_out()  # exact order from training
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
+# Prepare numeric data for scaling
 numeric = [[age, income, person_emp_length, loan_amount, loan_interest, loan_percent_income, cb_person_cred_hist_length]]
 
 # Prepare numeric data for scaling
@@ -47,22 +48,30 @@ numeric_df = pd.DataFrame(numeric, columns=[
     'loan_int_rate', 'loan_percent_income', 'cb_person_cred_hist_length'
 ])
 
+# Concatenate numeric and categorical data
 final_input_data = pd.concat([numeric_df, df_cat_encoded], axis=1)
 
+# Debugging: Print the shape of the input data
+st.write("Input data shape:", final_input_data.shape)
 
+# Scale the input data
 scaled_input = scaler.transform(final_input_data)
 
+# Check for NaN or infinite values
+if np.any(np.isnan(scaled_input)) or np.any(np.isinf(scaled_input)):
+    st.error("Error: Input data contains NaN or infinite values.")
+else:
+    # Prediction
+    if st.button("Predict"):
+        prediction = model.predict(scaled_input)
 
-# Prediction
-if st.button("Predict"):
-    prediction = model.predict(scaled_input)
-
-    # Check if prediction is valid
-    if prediction is None:
-        st.error("Error: Model prediction returned None.")
-    else:
-        # Assuming binary classification, checking for loan approval
-        if prediction[0][0] >= 0.5:
-            st.success("Loan Approved!")
+        # Check if prediction is valid
+        if prediction is None:
+            st.error("Error: Model prediction returned None.")
         else:
-            st.error("Loan Denied.")
+            # Assuming binary classification, checking for loan approval
+            st.write("Prediction:", prediction)  # Debugging prediction output
+            if prediction[0] >= 0.5:
+                st.success("Loan Approved!")
+            else:
+                st.error("Loan Denied.")
