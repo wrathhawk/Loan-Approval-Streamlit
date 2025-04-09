@@ -39,7 +39,7 @@ encoded = encoder.transform(cols_to_encode)
 categorical_columns = encoder.get_feature_names_out()  # exact order from training
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
-numeric = [[age, income, person_emp_length, loan_amount, loan_interest, loan_percent_income, cred_hist_length]]
+numeric = [[age, income, person_emp_lenght, loan_amount, loan_interest, loan_percent_income, cred_hist_length]]
 
 # Prepare numeric data for scaling
 numeric_df = pd.DataFrame(numeric, columns=[
