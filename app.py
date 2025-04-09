@@ -39,7 +39,6 @@ cat_df = pd.DataFrame(cols_to_encode, columns=[
 
 # Encode categorical
 encoded = encoder.transform(cat_df)
-
 # Get the categorical column names from the encoder
 categorical_columns = encoder.get_feature_names_out()  # exact order from training
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
