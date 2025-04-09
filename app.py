@@ -25,7 +25,7 @@ income = st.number_input("Annual Income", min_value=0)
 loan_amount = st.number_input("Loan Amount", min_value=0)
 person_emp_length = st.number_input("Person Emp Length", min_value=0)
 loan_percent_income = st.number_input("Loan Percent Income", min_value=0)
-cred_hist_lenght = st.number_input("Credit History Length", min_value=0)
+cb_person_cred_hist_length = st.number_input("Credit History Length", min_value=0)
 loan_interest = st.number_input("Loan Interest Rate (in %)", min_value=0.0)
 age = st.number_input("Age of the Applicant", min_value=18)
 
@@ -39,7 +39,7 @@ encoded = encoder.transform(cols_to_encode)
 categorical_columns = encoder.get_feature_names_out()  # exact order from training
 df_cat_encoded = pd.DataFrame(encoded, columns=categorical_columns)
 
-numeric = [[age, income, person_emp_length, loan_amount, loan_interest, loan_percent_income, cred_hist_length]]
+numeric = [[age, income, person_emp_length, loan_amount, loan_interest, loan_percent_income, cb_person_cred_hist_length]]
 
 # Prepare numeric data for scaling
 numeric_df = pd.DataFrame(numeric, columns=[
